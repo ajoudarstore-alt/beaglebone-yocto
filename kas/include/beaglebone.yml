@@ -1,0 +1,10 @@
+header:
+  version: 14
+
+repos:
+  meta-beaglebone:
+    url: https://git.yoctoproject.org/meta-ti/tree/meta-beagle
+    path: layers/meta-beagle
+    branch: scarthgap
+    commit: a444d3137a527d4a405986a5ffa143ed7dfc0961
+    

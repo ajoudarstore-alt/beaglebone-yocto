@@ -1,0 +1,14 @@
+header:
+  version: 14
+  includes:
+   - kas/include/oe.yml
+   - kas/include/local-conf.yml
+   - ka/include/beaglebone.yml
+
+
+machine: beaglebone
+distro: nodistro
+target: core-image-minimal
+
+
+
