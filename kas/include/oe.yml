@@ -1,10 +1,11 @@
 header:
   version: 14
 
+repos:
   bitbake:
     url: https://git.openembedded.org/bitbake
     path: layers/bitbake
-    branch: 2.8
+    branch: "2.8"
     commit: d3b4c352dd33fca90cd31649eda054b884478739
     layers:
       bitbake: disabled

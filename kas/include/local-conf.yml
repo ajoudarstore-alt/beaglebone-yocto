@@ -1,10 +1,6 @@
 header:
   version: 14
 
-bblayers_conf_header:
-  standard: |
-    BBPATH = "${TOPDIR}"
-    BBFILES ?= ""
 local_conf_header:
   standard: |
     CONF_VERSION = "2"
