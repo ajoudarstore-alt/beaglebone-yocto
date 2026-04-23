@@ -1,0 +1,24 @@
+header:
+  version: 14
+
+repos:
+  meta-ti:
+    url: https://git.yoctoproject.org/meta-ti
+    path: layers/meta-ti
+    branch: scarthgap
+    commit: a444d3137a527d4a405986a5ffa143ed7dfc0961
+    layers:
+      meta-beagle:
+      meta-ti-bsp:
+      meta-ti-extras:
+    
+  meta-arm:
+    url: https://git.yoctoproject.org/meta-arm
+    path: layers/meta-arm
+    branch: scarthgap
+    commit: a81c19915b5b9e71ed394032e9a50fd06919e1cd
+    layers:
+      meta-arm:
+      meta-arm-toolchain:
+      meta-arm-bsp:
+      

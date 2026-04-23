@@ -1,0 +1,12 @@
+header:
+  version: 14
+
+repos:
+  meta-joudar:
+    path: meta-joudar
+
+  meta-joudar-bsp:
+    path: meta-joudar-bsp
+    
+  meta-joudar-distro:
+    path: meta-joudar-distro
