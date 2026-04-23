@@ -29,7 +29,7 @@ This project uses a containerized build environment for reproducibility.
 Simply run the Docker-based build script:
 
 ```bash
-./run-docker.sh
+./docker.sh
 ```
 
 The build process will run inside a container, ensuring a clean and consistent environment.
