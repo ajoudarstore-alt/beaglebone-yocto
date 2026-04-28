@@ -1,60 +1,68 @@
 #!/bin/bash
 
 #you should test the number of argument
-if [ $# -ne 2 ]; then
-    echo "Usage: $0 checkout|shell|build <path/to/yml>"
+if [ $# -ne 3 ]; then
+    echo "Usage: $0 checkout|shell|build <path/to/yml> <path/to/YoctoShare>"
     exit 1
 fi
 
-
-PROJECT_DIR="$(realpath $(dirname "$0")/..)"
-
-
-
 #prepare yocto venv
-VENEV_DIR="${PROJECT_DIR}/yocto-venv"
-do_prepare_env(){
+PROJECT_DIR="$(realpath $(dirname "$0")/..)"
+VENV_DIR="${PROJECT_DIR}/yocto-venv"
+YOCTO_SHARE="${3}"
 
+do_prepare_env(){
+    
     if [ -d "${VENV_DIR}" ]; then
-        if [ ! "${VENV_DIR}/pyvenv.cfg" ]; then
-            echo "[x] python venv directory exist but no pyvenv.cfg"
-            echo "[x] make sur to remove the directory and repeat again"
+        if [ ! -f "${VENV_DIR}/pyvenv.cfg" ]; then
+            echo "[x] Python venv directory exist but no pyvenv.cfg"
+            echo "[x] Make sure to remove the directory and repeat again"
             exit 1
         fi
     else
-        python3 -m venv "${VENEV_DIR}"
-    fi 
+        python3 -m venv "${VENV_DIR}" || {
+            echo "[x] Failed to setup python3 venv"
+            exit 1
+        }
+    fi
 
-    #source / activate the yocto venv
-    echo "[+] sourcing the python ven"
-    source "${VENEV_DIR}/bin/activate" || {
-        echo "[x] Failed to setup the pŷthon venv"
+    # Source the venv
+    echo "[+] Sourcing the Python venv"
+    source "${VENV_DIR}/bin/activate" || {
+        echo "[x] Failed to setup the venv"
         exit 1
     }
 
-    #install the kas
-    if ! pip3 list | grep kas; then
-        echo "[+] INstalling KAS"
+    # Install "kas"
+    if ! pip3 list | grep -q kas; then
+        echo "[+] Installing kas"
         if ! pip3 install kas; then
             echo "[x] Error installing kas .."
-            exit 1
+            exitg 1
         fi
     fi
 }
 
-do_kas_checkout(){
-    local yml=$1
-    kas-container checkout  "${yml}"
-}
+# do_kas_checkout(){
+#     local yml=$1
+#     kas-container checkout  "${yml}"
+# }
 
-do_kas_shell(){
-    local yml=$1
-    kas-container shell  "${yml}"
-}
+# do_kas_shell(){
+#     local yml=$1
+#     kas-container shell  "${yml}"
+# }
 
-do_kas_build(){
-    local yml=$1
-    kas-container build  "${yml}"
+# do_kas_build(){
+#     local yml=$1
+#     kas-container build  "${yml}"
+# }
+
+
+do_kas(){
+    local yml="${1}"
+    local action="${2}"
+    kas-container --runtime-args "-v ${YOCTO_SHARE}:/yocto_shared" "${action}" "${yml}"
 }
 
 main(){
@@ -70,17 +78,36 @@ main(){
         echo "[x] "${yml}" does not exist"
         exit 1
     fi
-    
-    if [ "${action}" == "checkout" ]; then
-        do_kas_checkout "${yml}"
-    elif [ "${action}" == "shell" ]; then
-        do_kas_shell "${yml}"
-    elif [ "${action}" == "build" ]; then
-        do_kas_build "${yml}"
-    else
-        echo "[x] Wrong action"
+
+
+    if [ "${action}" != "shell" -a "${action}" != "build" -a "${action}" != "checkout" ]; then
+        echo "[ERROR] Wrong KAS action, possible: shell, build or checkout"
         exit 1
     fi
+    
+    do_kas "${yml}" "${action}"
+
+    # if["${action}" == "checkout"]; then
+    #     do_kas_checkout "${yml}"
+    # elif ["${action}" == "shell"]; then
+    #     do_kas_shell "${yml}"
+    # elif ["${action}" == "build"]; then
+    #     do_kas_build "${yml}"
+    # else
+    #     echo "[x] Wrong action"
+    #     exit 1
+    # fi
 }
+
+
+if [ ! -d "${YOCTO_SHARE}" ]; then
+    echo "[ERROR] The provided path (${YOCTO_SHARE}) is not a directory"
+    exit 1
+else
+    if [ ! -d "${YOCTO_SHARE}/downloads" -o ! -d "${YOCTO_SHARE}/sstate-cache" ]; then
+        echo "[ERROR] Make sure you have downloads and sstate-cache under ${YOCTO_SHARE}"
+        exit 1
+    fi
+fi
 
 main "$@"
