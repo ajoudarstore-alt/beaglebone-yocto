@@ -1,5 +1,7 @@
 *-venv
 build/
-layers/
+layers/*
+!layers/meta-rauc-joudar
 .kas_shell_history
 .vscode/
+
