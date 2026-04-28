@@ -10,3 +10,6 @@ repos:
     
   meta-joudar-distro:
     path: meta-joudar-distro
+
+  meta-rauc-joudar:
+    path: layers/meta-rauc-joudar

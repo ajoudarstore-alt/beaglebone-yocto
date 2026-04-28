@@ -5,10 +5,11 @@ header:
    - kas/include/oe.yml
    - kas/include/local-conf.yml
    - kas/include/beaglebone.yml
+   - kas/include/rauc.yml
 
 
 machine: beaglebone
-distro: nodistro
+distro: joudar
 target: core-image-minimal
 
 
