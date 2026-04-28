@@ -1,0 +1,26 @@
+header:
+  version: 14
+
+repos:
+  meta-rauc:
+    url: https://github.com/rauc/meta-rauc.git
+    path: layers/meta-rauc
+    branch: scarthgap
+    commit: d63878f20eba7a85ecf53566e7a3377e78bb46ac
+    
+
+  meta-rauc-community:
+    url: https://github.com/rauc/meta-rauc-community.git
+    path: layers/meta-rauc-community
+    branch: scarthgap
+    commit: 222c61275054974cdbd09bd5faa2b7a37ddbd840 
+    layers:
+      meta-rauc-beaglebone:
+  
+  meta-yocto:
+    url: https://git.yoctoproject.org/meta-yocto
+    path: layers/meta-yocto
+    branch: scarthgap
+    commit: c7c38663a1cafb1fa8593c0b246811e51d3bbe20 
+    layers:
+      meta-yocto-bsp:
