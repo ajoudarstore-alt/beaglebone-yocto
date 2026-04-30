@@ -5,6 +5,7 @@ local_conf_header:
   standard: |
     CONF_VERSION = "2"
     PACKAGE_CLASSES = "package_deb"
+    INHERIT += "cve-check"
 
   add-boot: |
     IMAGE_INSTALL:append = " rauc"
