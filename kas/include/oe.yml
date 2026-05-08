@@ -17,3 +17,11 @@ repos:
     commit: 52380df998b3a8fe6a091f8547434a3231320a8e 
     layers:
       meta:
+      
+  meta-openembedded:
+    url: https://git.openembedded.org/meta-openembedded
+    path: layers/meta-openembedded
+    branch: scarthgap
+    commit: 5124ac4a658899158f4a7a2ddf1d2ca931ec7d0e  
+    layers:
+      meta-oe:

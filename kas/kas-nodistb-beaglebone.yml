@@ -8,7 +8,7 @@ header:
    - kas/include/rauc.yml
 
 
-machine: beaglebone
+machine: joudar-beagleboneblack
 distro: joudar
 target: core-image-minimal
 

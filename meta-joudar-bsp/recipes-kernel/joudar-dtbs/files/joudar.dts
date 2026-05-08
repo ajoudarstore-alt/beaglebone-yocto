@@ -1,0 +1,5 @@
+/plugin/;
+
+&i2c2 {
+    status = "okay";
+};
